@@ -1,0 +1,19 @@
+networks:
+  macvlan65: 
+      external: true
+services:
+  terraform:
+    container_name: terraform
+    image: terraform:Dockerfile
+    ports:
+      - "22:22/tcp"
+    environment:
+      TZ: 'UTC'
+    hostname: terraform
+    entrypoint: /usr/bin/tail
+    command: -f /dev/null
+    dns: 192.168.65.1
+    networks:
+      macvlan65: 
+          ipv4_address: 192.168.65.30
+    restart: always
